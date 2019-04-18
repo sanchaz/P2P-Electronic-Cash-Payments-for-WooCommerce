@@ -20,19 +20,6 @@ if ( ! defined( 'ECP_PLUGIN_NAME' ) ) {
 }
 // ---------------------------------------------------------------------------
 // ------------------------------------------
-// Load WordPress for POSTback, WebHook and API pages that are called by external services directly.
-if ( defined( 'ECP_MUST_LOAD_WP' ) && ! defined( 'WP_USE_THEMES' ) && ! defined( 'ABSPATH' ) ) {
-	$g_blog_dir = preg_replace( '|(/+[^/]+){4}$|', '', str_replace( '\\', '/', __FILE__ ) ); // For love of the art of regex-ing
-	define( 'WP_USE_THEMES', false );
-	require_once $g_blog_dir . '/wp-blog-header.php';
-
-	// Force-elimination of header 404 for non-wordpress pages.
-	header( 'HTTP/1.1 200 OK' );
-	header( 'Status: 200 OK' );
-
-	require_once $g_blog_dir . '/wp-admin/includes/admin.php';
-}
-// ------------------------------------------
 // This loads necessary modules and selects best math library
 require_once dirname( __FILE__ ) . '/libs/util/bcmath_Utils.php';
 require_once dirname( __FILE__ ) . '/libs/util/gmp_Utils.php';

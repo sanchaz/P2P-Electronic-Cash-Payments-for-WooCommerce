@@ -1,16 +1,12 @@
 <?php
+
+defined( 'ABSPATH' ) or die( 'Bitcoin is for all!' );
+
 // Include everything
-define( 'ECP_MUST_LOAD_WP', '1' );
 require dirname( __FILE__ ) . '/ecp-include-all.php';
 
-// Cpanel-scheduled cron job call
-if ( @$_REQUEST['hardcron'] == '1' ) {
-	ECP_cron_job_worker( true );
-}
-
 // ===========================================================================
-// '$hardcron' == true if job is ran by Cpanel's cron job.
-// '$hardcron' is also affected by DISABLE_WP_CRON constant. If it is false
+// '$hardcron' is affected by DISABLE_WP_CRON constant. If it is false
 // then the user has setup wp_cron via a real cron job and we can run as if
 // it is a $hardcron
 abstract class BitcoinCronJob {
@@ -19,8 +15,12 @@ abstract class BitcoinCronJob {
 	private $hardcron;
 	private $max_unused_addresses_buffer = null;
 
-	public function __construct( $hardcron ) {
-		$this->hardcron     = $hardcron;
+	public function __construct() {
+		if ( defined( 'DISABLE_WP_CRON' ) && constant( 'DISABLE_WP_CRON' ) ) {
+			$this->hardcron = true;
+		} else {
+			$this->hardcron = false;
+		}
 		$this->ecp_settings = ecp__get_settings();
 	}
 
@@ -262,8 +262,8 @@ class BitcoinBCHCronJob extends BitcoinCronJob {
 
 	private $gateway;
 
-	public function __construct( $hardcron ) {
-		parent::__construct( $hardcron );
+	public function __construct() {
+		parent::__construct();
 		$this->gateway = new ECP_Bitcoin_Cash();
 	}
 
@@ -280,8 +280,8 @@ class BitcoinBSVCronJob extends BitcoinCronJob {
 
 	private $gateway;
 
-	public function __construct( $hardcron ) {
-		parent::__construct( $hardcron );
+	public function __construct() {
+		parent::__construct();
 		$this->gateway = new ECP_Bitcoin_SV();
 	}
 
@@ -294,17 +294,15 @@ class BitcoinBSVCronJob extends BitcoinCronJob {
 	}
 }
 
-function ECP_cron_job_worker( $hardcron = false ) {
+function ECP_cron_job_worker( ) {
 	global $wpdb;
 
-	if ( defined( 'DISABLE_WP_CRON' ) && constant( 'DISABLE_WP_CRON' ) ) {
-		$hardcron = true;
-	}
+	
 
 	$cron_classes = array( 'BitcoinBCHCronJob', 'BitcoinBSVCronJob' );
 
 	foreach ( $cron_classes as $job_class ) {
-		$job = new $job_class( $hardcron );
+		$job = new $job_class();
 		$job->run();
 	}
 }

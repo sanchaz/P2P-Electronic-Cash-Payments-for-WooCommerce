@@ -37,7 +37,6 @@ $g_ecp_config_defaults = array(
 													// In this case it is recommended to regenerate new wallet after 'gap limit' reaches 1000.
 	'delete_db_tables_on_uninstall'        => '0',
 	'autocomplete_paid_orders'             => '1',
-	'enable_soft_cron_job'                 => '1',    // Enable "soft" Wordpress-driven cron jobs.
 );
 // ===========================================================================
 /**

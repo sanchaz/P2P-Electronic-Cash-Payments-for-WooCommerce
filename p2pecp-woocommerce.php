@@ -53,7 +53,7 @@ function ECP_activate() {
 
 	// ----------------------------------
 	// Setup cron jobs
-	if ( $ecp_settings['enable_soft_cron_job'] && ! wp_next_scheduled( 'ECP_cron_action' ) ) {
+	if ( ! wp_next_scheduled( 'ECP_cron_action' ) ) {
 		$cron_job_schedule_name = strpos( $_SERVER['HTTP_HOST'], 'ttt.com' ) === false ? $ecp_settings['soft_cron_job_schedule_name'] : 'seconds_30';
 		wp_schedule_event( time(), $cron_job_schedule_name, 'ECP_cron_action' );
 	}
@@ -131,10 +131,10 @@ function ECP_create_menu() {
 
 	add_submenu_page(
 		'ecp-settings',                                        // Parent
-		__( 'P2P Electronic Cash Payments (ECP) Advanced Settings', ECP_I18N_DOMAIN ),       // Page title
-		__( 'Advanced Settings', ECP_I18N_DOMAIN ),                // Menu title
+		__( 'P2P Electronic Cash Payments (ECP) API Settings', ECP_I18N_DOMAIN ),       // Page title
+		__( 'API Settings', ECP_I18N_DOMAIN ),                // Menu title
 		'administrator',                                        // Capability
-		'ecp-settings-advanced',                        // Handle - First submenu's handle must be equal to parent's handle to avoid duplicate menu entry.
+		'ecp-settings-advanced',                        //
 		'ECP__render_advanced_settings_page'            // Function
 	);
 }
