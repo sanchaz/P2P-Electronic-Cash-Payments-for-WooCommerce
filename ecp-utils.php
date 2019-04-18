@@ -652,101 +652,20 @@ $ret_info_array = array (
 */
 
 // ===========================================================================
-function ECP__function_not_exists( $fname ) {
-	return ! function_exists( $fname );
-}
-// ===========================================================================
 // ===========================================================================
 /*
-  Get web page contents with the help of PHP cURL library
-   Success => content
-   Error   => if ($return_content_on_error == true) $content; else FALSE;
+  Get web page contents
 */
-function ECP__file_get_contents( $url, $return_content_on_error = false, $timeout = 60, $user_agent = false, $is_post = false, $post_data = '' ) {
-	if ( ! function_exists( 'curl_init' ) ) {
-		if ( ! $is_post ) {
-			$ret_val = @file_get_contents( $url );
-			return $ret_val;
-		} else {
-			return false;
-		}
-	}
+function ECP__file_get_contents( $url, $timeout = 60 ) {
+	
+	$response = wp_remote_get( $url, $timeout );
+	$resp_code = wp_remote_retrieve_response_code( $response );
+	$content = wp_remote_retrieve_body( $response );
 
-	$p  = substr( md5( microtime() ), 24 ) . 'bw'; // curl post padding
-	$ch = curl_init();
-
-	if ( $is_post ) {
-		$new_post_data = $post_data;
-		if ( is_array( $post_data ) ) {
-			foreach ( $post_data as $k => $v ) {
-				$safetied = $v;
-				if ( is_object( $safetied ) ) {
-					$safetied = ECP__object_to_array( $safetied );
-				}
-				if ( is_array( $safetied ) ) {
-					$safetied            = serialize( $safetied );
-					$safetied            = $p . str_replace( '=', '_', base64_encode( $safetied ) );
-					$new_post_data[ $k ] = $safetied;
-				}
-			}
-		}
-	}
-
-	// $options = array(
-	// CURLOPT_URL            => $url,
-	// CURLOPT_RETURNTRANSFER => true,     // return web page
-	// CURLOPT_HEADER         => false,    // don't return headers
-	// CURLOPT_ENCODING       => "",       // handle compressed
-	// CURLOPT_USERAGENT      => $user_agent?$user_agent:urlencode("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.12 (KHTML, like Gecko) Chrome/9.0.576.0 Safari/534.12"), // who am i
-	// CURLOPT_AUTOREFERER    => true,     // set referer on redirect
-	// CURLOPT_CONNECTTIMEOUT => $timeout,       // timeout on connect
-	// CURLOPT_TIMEOUT        => $timeout,       // timeout on response in seconds.
-	// CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-	// CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
-	// CURLOPT_SSL_VERIFYPEER => false,    // Disable SSL verification
-	// CURLOPT_POST           => $is_post,
-	// CURLOPT_POSTFIELDS     => $new_post_data,
-	// );
-	// if (function_exists('curl_setopt_array'))
-	// {
-	// curl_setopt_array      ($ch, $options);
-	// }
-	// else
-	{
-	  // To accomodate older PHP 5.0.x systems
-	  curl_setopt( $ch, CURLOPT_URL, $url );
-	  curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );     // return web page
-	  curl_setopt( $ch, CURLOPT_HEADER, false );    // don't return headers
-	  curl_setopt( $ch, CURLOPT_ENCODING, '' );       // handle compressed
-	  curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent ? $user_agent : urlencode( 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.12 (KHTML, like Gecko) Chrome/9.0.576.0 Safari/534.12' ) ); // who am i
-	  curl_setopt( $ch, CURLOPT_AUTOREFERER, true );     // set referer on redirect
-	  curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $timeout );       // timeout on connect
-	  curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );       // timeout on response in seconds.
-	  curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );     // follow redirects
-	  curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );       // stop after 10 redirects
-	  curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    // Disable SSL verifications
-	if ( $is_post ) {
-		curl_setopt( $ch, CURLOPT_POST, true );
-	}
-	if ( $is_post ) {
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $new_post_data );
-	}
-	  }
-
-	$content = curl_exec( $ch );
-	$err     = curl_errno( $ch );
-	$header  = curl_getinfo( $ch );
-	// $errmsg  = curl_error  ($ch);
-	curl_close( $ch );
-
-	if ( ! $err && $header['http_code'] == 200 ) {
+	if ( ! $err && $resp_code == 200 ) {
 		return trim( $content );
 	} else {
-		if ( $return_content_on_error ) {
-			return trim( $content );
-		} else {
-			return false;
-		}
+		return false;
 	}
 }
 // ===========================================================================

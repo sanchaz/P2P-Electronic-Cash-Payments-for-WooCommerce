@@ -43,7 +43,7 @@ class BlockdozerAPI extends BlockchainAPI {
 	}
 
 	public function get_funds_received( $address ) {
-		$funds_received = ECP__file_get_contents( 'http://blockdozer.com/insight-api/addr/' . $address['btc_address'] . '/totalReceived', true, $this->api_timeout );
+		$funds_received = ECP__file_get_contents( 'http://blockdozer.com/insight-api/addr/' . $address['btc_address'] . '/totalReceived', $this->api_timeout );
 
 		if ( ! is_numeric( $funds_received ) ) {
 			return false;
@@ -59,7 +59,7 @@ class BlockExplorerAPI extends BlockchainAPI {
 	}
 
 	public function get_funds_received( $address ) {
-		$funds_received = ECP__file_get_contents( 'https://bitcoincash.blockexplorer.com/api/addr/' . $address['btc_address'] . '/totalReceived', true, $this->api_timeout );
+		$funds_received = ECP__file_get_contents( 'https://bitcoincash.blockexplorer.com/api/addr/' . $address['btc_address'] . '/totalReceived', $this->api_timeout );
 
 		if ( ! is_numeric( $funds_received ) ) {
 			return false;
@@ -115,7 +115,7 @@ class TokenViewAPI extends BlockchainAPI {
 	}
 
 	public function get_funds_received( $address ) {
-		$funds_received = $this->extract_funds_received( @json_decode( trim( @ECP__file_get_contents( 'http://www.tokenview.com:8088/search/' . $address['btc_address'], false, $this->api_timeout ) ), true ), $address['btc_address'] );
+		$funds_received = $this->extract_funds_received( @json_decode( trim( @ECP__file_get_contents( 'http://www.tokenview.com:8088/search/' . $address['btc_address'], $this->api_timeout ) ), true ), $address['btc_address'] );
 
 		if ( ! is_numeric( $funds_received ) ) {
 			return false;
@@ -154,7 +154,6 @@ class BTCComAPI extends BlockchainAPI {
 		// https://bch-chain.api.btc.com/v3/address/15urYnyeJe3gwbGJ74wcX89Tz7ZtsFDVew
 		$funds_received = $this->extract_funds_received( @json_decode( trim( @ECP__file_get_contents(
 				'https://' . $this->variant_in_use .'-chain.api.btc.com/v3/address/' . $address['btc_address'],
-				false,
 				$this->api_timeout )
 		    ), true ));
 
@@ -184,7 +183,6 @@ class BCHSVExplorer extends BlockchainAPI {
 	public function get_funds_received( $address ) {
 		$funds_received = $this->extract_funds_received( @json_decode( trim( @ECP__file_get_contents(
 				'https://bchsvexplorer.com/api/addr/' . $address['btc_address'],
-				false,
 				$this->api_timeout )
 		    ), true ));
 

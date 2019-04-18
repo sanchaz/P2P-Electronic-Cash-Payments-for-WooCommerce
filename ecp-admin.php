@@ -29,8 +29,8 @@ $g_ecp_config_defaults = array(
 	'funds_received_value_expires_in_mins' => '5',      // 'received_funds_checked_at' is fresh (considered to be a valid value) if it was last checked within 'funds_received_value_expires_in_mins' minutes.
 	'max_blockchains_api_failures'         => '3',    // Return error after this number of sequential failed attempts to retrieve blockchain data.
 	'max_unusable_generated_addresses'     => '20',   // Return error after this number of unusable (non-empty) bitcoin addresses were sequentially generated.
-	'blockchain_api_timeout_secs'          => '20',   // Connection and request timeouts for curl operations dealing with blockchain requests.
-	'exchange_rate_api_timeout_secs'       => '10',   // Connection and request timeouts for curl operations dealing with exchange rate API requests.
+	'blockchain_api_timeout_secs'          => '20',   // Connection and request timeouts for get operations dealing with blockchain requests.
+	'exchange_rate_api_timeout_secs'       => '10',   // Connection and request timeouts for get operations dealing with exchange rate API requests.
 	'soft_cron_job_schedule_name'          => 'minutes_1',   // WP cron job frequency.
 	'reuse_expired_addresses'              => '0',   // True - may reduce anonymouty of store customers (someone may click/generate bunch of fake orders to list many addresses that in a future will be used by real customers).
 													// False - better anonymouty but may leave many addresses in wallet unused (and hence will require very high 'gap limit') due to many unpaid order clicks.

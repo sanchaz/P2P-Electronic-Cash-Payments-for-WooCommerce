@@ -78,7 +78,7 @@ class Bitpay extends ExchangeRateAPI {
 
 	public function get_exchange_rate_realtime() {
 		$source_url = 'https://bitpay.com/api/rates/BCH/' . get_woocommerce_currency();
-		$result     = @ECP__file_get_contents( $source_url, false, $this->exchange_rate_api_timeout_secs );
+		$result     = @ECP__file_get_contents( $source_url, $this->exchange_rate_api_timeout_secs );
 
 		$rate_obj = @json_decode( trim( $result ), true );
 
@@ -122,7 +122,7 @@ class Coinmarketcap extends ExchangeRateAPI {
 	// return false is not available
 	public function get_exchange_rate_realtime() {
 		$source_url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=' . $this->api_key . '&symbol=' . strtoupper( $this->variant_in_use ) . '&convert=' . strtoupper( get_woocommerce_currency() );
-		$result     = @ECP__file_get_contents( $source_url, false, $this->exchange_rate_api_timeout_secs );
+		$result     = @ECP__file_get_contents( $source_url, $this->exchange_rate_api_timeout_secs );
 
 		$rate_obj = @json_decode( trim( $result ), true );
 
@@ -175,7 +175,7 @@ class Coinlib extends ExchangeRateAPI {
 
 	public function get_exchange_rate_realtime() {
 		$source_url = 'https://coinlib.io/api/v1/coin?key=' . $this->api_key . '&pref=' . strtoupper( get_woocommerce_currency() ) . '&symbol=' . $this->get_symbol();
-		$result     = @ECP__file_get_contents( $source_url, false, $this->exchange_rate_api_timeout_secs );
+		$result     = @ECP__file_get_contents( $source_url, $this->exchange_rate_api_timeout_secs );
 
 		$rate_obj = @json_decode( trim( $result ), true );
 
@@ -206,7 +206,7 @@ class BitcoinAverage extends ExchangeRateAPI {
 
 	private function get_exchange_rate( $rate_type ) {
 		$source_url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=' . strtoupper( $this->variant_in_use ) . '&fiat=' . get_woocommerce_currency();
-		$result     = @ECP__file_get_contents( $source_url, false, $this->exchange_rate_api_timeout_secs );
+		$result     = @ECP__file_get_contents( $source_url, $this->exchange_rate_api_timeout_secs );
 
 		$rate_obj = @json_decode( trim( $result ), true );
 
@@ -256,7 +256,7 @@ class Coingecko extends ExchangeRateAPI {
 
 	public function get_exchange_rate_realtime() {
 		$source_url = 'https://api.coingecko.com/api/v3/simple/price?ids=' . $this->get_variant_url_part() . '&vs_currencies=' . get_woocommerce_currency();
-		$result     = @ECP__file_get_contents( $source_url, false, $this->exchange_rate_api_timeout_secs );
+		$result     = @ECP__file_get_contents( $source_url, $this->exchange_rate_api_timeout_secs );
 
 		$rate_obj = @json_decode( trim( $result ), true );
 

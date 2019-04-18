@@ -144,16 +144,7 @@ function ECP__plugins_loaded__load_bitcoin_gateway() {
 				if ( ! $exchange_rate ) {
 
 					// Assemble error message.
-					$error_msg           = "ERROR: Cannot determine exchange rates (for '$store_currency_code')! {{{ERROR_MESSAGE}}} Make sure your PHP settings are configured properly and your server can (is allowed to) connect to external WEB services via PHP.";
-					$extra_error_message = '';
-					$fns                 = array( 'file_get_contents', 'curl_init', 'curl_setopt', 'curl_setopt_array', 'curl_exec' );
-					$fns                 = array_filter( $fns, 'ECP__function_not_exists' );
-					$extra_error_message = '';
-					if ( count( $fns ) ) {
-						$extra_error_message = 'The following PHP functions are disabled on your server: ' . implode( ', ', $fns ) . '.';
-					}
-
-					$reason_message = str_replace( '{{{ERROR_MESSAGE}}}', $extra_error_message, $error_msg );
+					$error_msg           = "ERROR: Cannot determine exchange rates (for '$store_currency_code')! Make sure your PHP settings are configured properly and your server can (is allowed to) connect to external WEB services via PHP.";
 
 					if ( $ret_reason_message !== null ) {
 						$ret_reason_message = $reason_message;
