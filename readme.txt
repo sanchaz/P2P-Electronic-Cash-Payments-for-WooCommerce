@@ -1,9 +1,10 @@
 === P2P Electronic Cash Payments for WooCommerce ===
-Contributors: sanchaz, mboyd1, gesman, bitcoinway.com
+Contributors: sanchaz, cryptartica
 Donation address: https://cryptartica.com ( Buy yourself some Bitcoin Cash/SV Merchandise :) )
 Tags: bitcoin cash, bitcoin cash wordpress plugin, bitcoin cash plugin, bitcoin cash payments, accept bitcoin cash, bch, bitcoin sv, bitcoin sv wordpress plugin, bitcoin sv plugin, bitcoin sv payments, accept bitcoin sv, bsv
 Requires at least: Wordpress 4.9.9
 Tested up to: Wordpress 5.1.1
+Requires PHP: 5.6.40
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -61,6 +62,8 @@ If you encounter any problems, please open an issue.
 
 == Supporters ==
 
+Previously contributed to Bitcoin/Bitcoin Cash/Bitcoin SV Payments for Woocommerce
+
 * sanchaz: https://sanchaz.net
 * mboyd1:  https://github.com/mboyd1
 * Yifu Guo: http://bitsyn.com/
@@ -94,3 +97,9 @@ Can I contribute? Sure! Go ahead and make a pull request. Clearly explain what t
 == Roadmap ==
 
 * Enable/Disable and select order of preference for APIs used to fetch the exchange rate and check address balance.
+
+== Upgrade Notice ==
+
+None
+
+
