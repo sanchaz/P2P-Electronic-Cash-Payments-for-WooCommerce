@@ -1,5 +1,5 @@
 === P2P Electronic Cash Payments for WooCommerce ===
-Contributors: sanchaz, cryptartica
+Contributors: cryptartica, sanchaz
 Donation address: https://cryptartica.com ( Buy yourself some Bitcoin Cash/SV Merchandise :) )
 Tags: bitcoin cash, bitcoin cash wordpress plugin, bitcoin cash plugin, bitcoin cash payments, accept bitcoin cash, bch, bitcoin sv, bitcoin sv wordpress plugin, bitcoin sv plugin, bitcoin sv payments, accept bitcoin sv, bsv
 Requires at least: Wordpress 4.9.9
@@ -14,6 +14,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 P2P Electronic Cash Payments for WooCommerce is a Wordpress plugin that allows you to accept Bitcoin Cash and Bitcoin SV at WooCommerce-powered online stores.
 
 == Description ==
+
+Bitcoin Cash and SV Payment Gateways for Woocommerce. 0 fees, 0 commissions, no third parties, financial sovereignty.
+Using Electron Cash/Electrum SV Master Public Keys. No keys are stored on your server, and your funds are always safe.
+
+Bank the unbanked.
 
 Your online store must use WooCommerce platform (free wordpress plugin).
 Once you installed and activated WooCommerce, you may install and activate P2P Electronic Cash Payments for WooCommerce.
